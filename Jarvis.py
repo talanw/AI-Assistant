@@ -7,6 +7,7 @@ import WikiSearch
 import SendMail
 import ChromeSearch
 import SystemFunction
+import Jokes
 
 def Greeting():
     Hour = datetime.datetime.now().hour
@@ -64,6 +65,20 @@ if __name__ == "__main__":
         elif "remember" in TextFromSpeech:
             Speaker.Speak("What do you need me to remember?")
             ContentsToRemember = Listener.ListenToYou().lower()
-
+            with open("remData.txt", "w") as RemFile:
+                RemFile.write(ContentsToRemember)
+        elif "remind" in TextFromSpeech:
+            with open("remData.txt", "r") as RemFile:
+                FileContents = RemFile.read()
+            Speaker.Speak(FileContents)
+        elif "screenshot" in TextFromSpeech:
+            SystemFunction.Screenshot()
+            Speaker.Speak("I've taken a screenshot for you")
+        elif "usage" in TextFromSpeech:
+            Output = SystemFunction.SystemUsage()
+            Speaker.Speak(Output)
+        elif "joke" in TextFromSpeech:
+            Joke = Jokes.ReturnJoke()
+            Speaker.Speak(Joke)
         elif "quit" in TextFromSpeech or "goodbye" in TextFromSpeech or "goodnight" in TextFromSpeech:
             quit()
