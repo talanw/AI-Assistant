@@ -8,7 +8,7 @@ import SendMail
 import ChromeSearch
 import SystemFunction
 import Jokes
-
+import Modulo
 def Greeting():
     Hour = datetime.datetime.now().hour
     if Hour >= 6 and Hour < 12:
@@ -80,5 +80,23 @@ if __name__ == "__main__":
         elif "joke" in TextFromSpeech:
             Joke = Jokes.ReturnJoke()
             Speaker.Speak(Joke)
+        elif "modulus" in TextFromSpeech:
+            Num1 = 0
+            Num2 = 0
+            while Num1 == 0:
+                try:
+                    Speaker.Speak("What is the first or encrypted number")
+                    Num1 = int(Listener.ListenToYou().lower())
+                except:
+                    Speaker.Speak("I didn't understand that number please try again.")
+                    continue
+            while Num2 == 0:
+                try:
+                    Speaker.Speak("What is the modulus specified")
+                    Num2 = int(Listener.ListenToYou().lower())
+                except:
+                    Speaker.Speak("I didn't understand that number please try again.")
+                    continue
+            Modulo.Modulo(Num1, Num2)
         elif "quit" in TextFromSpeech or "goodbye" in TextFromSpeech or "goodnight" in TextFromSpeech:
             quit()
